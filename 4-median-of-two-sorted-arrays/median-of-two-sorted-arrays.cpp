@@ -6,7 +6,7 @@ public:
         vector<int> nums;
         int i=0;
         int j=0;
-        while(i<n and j<m and nums.size()<((n+m)/2)+2) {
+        while(i<n and j<m) {
             nums1[i] < nums2[j] ? nums.push_back(nums1[i++]) : nums.push_back(nums2[j++]);
         }   
         while(i < n) {
