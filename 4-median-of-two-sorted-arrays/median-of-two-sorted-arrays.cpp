@@ -6,14 +6,14 @@ public:
         vector<int> nums;
         int i=0;
         int j=0;
-        while(i<n and j<m) nums1[i] < nums2[j] ? nums.push_back(nums1[i++]) : nums.push_back(nums2[j++]);
+        while(i<n and j<m) {
+            nums1[i] < nums2[j] ? nums.push_back(nums1[i++]) : nums.push_back(nums2[j++]);
+        }   
         while(i < n) {
-            nums.push_back(nums1[i]);
-            i++;
+            nums.push_back(nums1[i++]);
         }
         while(j < m) {
-            nums.push_back(nums2[j]);
-            j++;
+            nums.push_back(nums2[j++]);
         }
         if((n+m)%2 != 0) {
             return nums[(n+m)/2];
