@@ -6,16 +6,7 @@ public:
         vector<int> nums;
         int i=0;
         int j=0;
-        while(i<n and j<m) {
-            if(nums1[i] < nums2[j]){
-                nums.push_back(nums1[i]);
-                i++;
-            }
-            else {
-                nums.push_back(nums2[j]);
-                j++;
-            }
-        }
+        while(i<n and j<m) nums1[i] < nums2[j] ? nums.push_back(nums1[i++]) : nums.push_back(nums2[j++]);
         while(i < n) {
             nums.push_back(nums1[i]);
             i++;
