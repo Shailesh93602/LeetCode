@@ -19,19 +19,19 @@ public:
             }
         }
 
-        string result = "";
+        string ans = "";
         
         while (!st.empty()) {
-            char currentChar = st.top();
+            char curr = st.top();
             st.pop();
-            if (leftCount > rightCount && currentChar == '(') {
+            if (leftCount > rightCount && curr == '(') {
                 leftCount--;
             } else {
-                result += currentChar;
+                ans += curr;
             }
         }
 
-        reverse(result.begin(), result.end());
-        return result;
+        reverse(ans.begin(), ans.end());
+        return ans;
     }
 };
