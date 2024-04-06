@@ -3,9 +3,8 @@ public:
     string minRemoveToMakeValid(string s) {
          int leftCount = 0;
         int rightCount = 0;
-        std::stack<char> stack;
+        stack<char> st;
 
-        // Pass 1
         for (char ch : s) {
             if (ch == '(') {
                 leftCount++;
@@ -16,16 +15,15 @@ public:
                 rightCount--;
                 continue;
             } else {
-                stack.push(ch);
+                st.push(ch);
             }
         }
 
-        std::string result = "";
+        string result = "";
         
-        // Pass 2
-        while (!stack.empty()) {
-            char currentChar = stack.top();
-            stack.pop();
+        while (!st.empty()) {
+            char currentChar = st.top();
+            st.pop();
             if (leftCount > rightCount && currentChar == '(') {
                 leftCount--;
             } else {
@@ -33,8 +31,7 @@ public:
             }
         }
 
-        // Reverse the result string
-        std::reverse(result.begin(), result.end());
+        reverse(result.begin(), result.end());
         return result;
     }
 };
