@@ -1,30 +1,12 @@
 class Solution {
 public:
-    string inverse(string &s) {
-        for(char &ch: s) {
-            if(ch == '0') ch = '1';
-            else ch = '0';
-        }
-
-        return s;
-    }
-    string solve(string s) {
-        string ans = "";
-
-        for(int i=s.length()-1; i>=0; i--) {
-            ans += s[i];
-        }
-
-        return inverse(ans);
-    }
     char findKthBit(int n, int k) {
-        string prev;
-        string ans = "0";
-        while(n--) {
-            prev = ans;
-            ans = prev + '1' + solve(prev);
-        }
-
-        return ans[k-1];
+        if(n == 1) return '0';
+        
+        int len = 1 << n;
+        if(k < len/2) return findKthBit(n-1, k);
+        else if(k == len/2) return '1'; 
+        else if(findKthBit(n-1, len-k) == '0') return '1';
+        else return '0';
     }
 };
