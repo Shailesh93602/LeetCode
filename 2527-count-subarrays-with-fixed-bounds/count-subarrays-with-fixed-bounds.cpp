@@ -1,21 +1,15 @@
 class Solution {
 public:
     long long countSubarrays(vector<int>& nums, int minK, int maxK) {
-        long long int count = 0;
-        int temp = -1;
-        int left = -1;
-        int right = -1;
+        long long ans = 0, i = -1, minVal = -1, maxVal = -1;
 
-        for(int i=0; i<nums.size(); i++) {
-            if(!(minK <= nums[i] && nums[i] <= maxK)) temp = i;
-            
-            if(nums[i] == minK) left = i;
-
-            if(nums[i] == maxK) right = i;
-
-            count += max(0, min(left, right) - temp);
+        for(int j=0; j<nums.size(); j++) {
+            if(nums[j] < minK || nums[j] > maxK) i = j;
+            if(nums[j] == maxK) maxVal = j;
+            if(nums[j] == minK) minVal = j;
+            ans += max(0LL, min(minVal, maxVal) - i);
         }
 
-        return count;
+        return ans;
     }
 };
