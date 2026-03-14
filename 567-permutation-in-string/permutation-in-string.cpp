@@ -1,35 +1,39 @@
 class Solution {
 public:
-
     bool checkInclusion(string s1, string s2) {
-        int n1 = s1.size();
-        int n2 = s2.size();
+        int n = s1.length(), m = s2.length();
 
-        if(n2 < n1) return 0;
-        array<int, 26> freq = {0};
-        bitset<26> need = 0;
+        if(n > m) return false;
 
-        for(char c: s1) {
-            int idx = c-'a';
-            freq[idx]++;
-            need[idx] = 1;
+        vector<int> freq1(256, 0), freq2(256, 0);
+
+        for(char ch: s1) freq1[ch]++;
+
+        int left = 0, right = n-1;
+
+        for(int i=left; i<right; i++) {
+            freq2[s2[i]]++;
         }
 
-        for(int l=0, r=0; r<n2; r++) {
-            int i = s2[r] - 'a';
-            freq[i]--;
-            if(freq[i] == 0) need[i] = 0;
+        while(right < m) {
+            char ch = s2[right];
+            freq2[ch]++;
+            bool isChanged = false;
 
-            while(freq[i] < 0) {
-                int j = s2[l] - 'a';
-                freq[j]++;
-                if(freq[j] > 0) need[j] = 1;
-                l++;
-            }
+            for(int i=0; i<256; i++) {
+                if(freq1[i] != freq2[i]) {
+                    isChanged = true;
+                    break;
+                }
+            } 
 
-            if(need == 0) return 1;
+            if(!isChanged) return true;
+
+            freq2[s2[left]]--;
+            left++;
+            right++;
         }
 
-        return 0;
+        return false;
     }
 };
