@@ -1,45 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
 class Solution {
 public:
     string minWindow(string s, string t) {
-        int m = s.length(), n = t.length();
-        vector<int> freq1(256, 0), freq2(256, 0);
+        vector<int> freq(256, 0);
 
-        for(unsigned char ch: t) {
-            freq1[ch]++;
-        }
+        for(char c : t)
+            freq[c]++;
 
-        int left = 0, right = 0, minLen = INT_MAX, minLeft = 0, minRight = m-1;
+        int left = 0, right = 0;
+        int matched = 0;
+        int start = 0;
+        int minLen = INT_MAX;
 
-        while(right < m) {
-            unsigned char ch = s[right];
-            freq2[ch]++;
-            bool isChanged = false;
+        while(right < s.size()) {
+            char c = s[right];
 
-            for(int i=0; i<256; i++) {
-                if(freq2[i] < freq1[i]) {
-                    isChanged = true;
-                    break;
+            if(freq[c] > 0)
+                matched++;
+
+            freq[c]--;
+            right++;
+
+            while(matched == t.size()) {
+
+                if(right - left < minLen) {
+                    minLen = right - left;
+                    start = left;
                 }
-            }
 
-            while(freq2[s[left]] > freq1[s[left]]) {
-                freq2[s[left]]--;
+                char leftChar = s[left];
+                freq[leftChar]++;
+
+                if(freq[leftChar] > 0)
+                    matched--;
+
                 left++;
             }
-
-            if(!isChanged) {
-                if(right-left+1 < minLen) {
-                    minLen = right-left+1;
-                    minLeft = left;
-                    minRight = right;
-                }
-            }
-
-            right++;
         }
 
-        if(minLen == INT_MAX) return "";
-
-        return s.substr(minLeft, minLen);
+        return minLen == INT_MAX ? "" : s.substr(start, minLen);
     }
 };
