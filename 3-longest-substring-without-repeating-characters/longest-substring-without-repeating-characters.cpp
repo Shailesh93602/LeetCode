@@ -1,22 +1,32 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
+        int left = 0, right = 0, n = s.length();
+
+        if(n == 0) return 0;
+        
+        int maxLeft = 0, maxRight = 0;
         vector<int> freq(256, 0);
-        int left = 0, right = 0, maxLen = 0, n = s.length();
 
         while(right < n) {
-            unsigned char ch = s[right];
+            char ch = s[right];
             freq[ch]++;
 
-            while(freq[ch] > 1) {
-                freq[(unsigned char)s[left]]--;
-                left++;
+            if(freq[ch] == 1) {
+                if(maxRight - maxLeft < right - left) {
+                    maxLeft = left;
+                    maxRight = right;
+                }
+            } else {
+                while(freq[ch] > 1) {
+                    freq[s[left]]--;
+                    left++;
+                }
             }
-            
-            maxLen = max(maxLen, right-left+1);
+
             right++;
         }
 
-        return maxLen;
+        return maxRight - maxLeft + 1;
     }
 };
