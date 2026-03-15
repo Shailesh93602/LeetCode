@@ -14,15 +14,9 @@ public:
 
         vector<int> ans;
         for(int i=0; i<n; i++) {
-            if(nums[i] != 0) {
-                ans.push_back((leftProd[i]/nums[i]) * (rightProd[i]/nums[i]));
-            } else if(n == 1) {
-                ans.push_back(0);
-            } else if(i == 0) {
-                ans.push_back(rightProd[i + 1]);
-            } else if(i == n-1) {
-                ans.push_back(leftProd[i - 1]);
-            } else ans.push_back(leftProd[i - 1] * rightProd[i + 1]);
+            if(i == 0) ans.push_back(rightProd[i + 1]);
+            else if(i == n-1) ans.push_back(leftProd[i - 1]);
+            else ans.push_back(leftProd[i - 1] * rightProd[i + 1]);
         }
 
         return ans;
