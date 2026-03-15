@@ -5,9 +5,6 @@ public:
 
         for(int i: nums) map[i]++;
 
-        vector<pair<int, int>> freq;
-        for(const auto pair: map) freq.push_back(pair);
-
         vector<vector<int>> bucket(nums.size()+1);
         for(auto it: map) {
             int first = it.first;
