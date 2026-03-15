@@ -8,13 +8,21 @@ public:
         vector<pair<int, int>> freq;
         for(const auto pair: map) freq.push_back(pair);
 
-        sort(freq.begin(), freq.end(), [](const pair<int, int> &a, const pair<int, int> &b) {
-            return a.second < b.second;
-        });
+        vector<vector<int>> bucket(nums.size()+1);
+        for(auto it: map) {
+            int first = it.first;
+            int second = it.second;
+            bucket[second].push_back(first);
+        }
 
         vector<int> ans;
-        int n = freq.size();
-        for(int i=n-1; i>=n-k; i--) ans.push_back(freq[i].first);
+        for(int i=bucket.size() - 1; i>=0; i--) {
+            for(int j=bucket[i].size() - 1; j>=0; j--) {
+                ans.push_back(bucket[i][j]);
+
+                if(ans.size() == k) return ans;
+            }
+        }
 
         return ans;
     }
