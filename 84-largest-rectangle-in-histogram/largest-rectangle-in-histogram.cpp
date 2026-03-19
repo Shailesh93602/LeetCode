@@ -11,7 +11,7 @@ public:
                 auto [j, height] = st.top();
                 st.pop();
 
-                ans = max(ans, max(ans, height * (i - j)));
+                ans = max(ans, height * (i - j));
                 start = j;
             }
 
