@@ -1,24 +1,22 @@
 class Solution {
 public:
     vector<int> partitionLabels(string s) {
-        vector<int> ans, first(26, 0), last(26, 0);
-        int i = 0, j = 0, n = s.length();
+        vector<int> ans;
+        vector<int> freq(26, 0);
 
-        for(int k=0; k<n; k++) last[s[k] - 'a'] = k; 
+        int n = s.length();
+        for (int i = 0; i < n; i++)
+            freq[s[i] - 'a'] = i;
 
-        for(int k=0; k<n; k++) {
-            if(!first[s[k] - 'a']) first[s[k] - 'a'] = k;
+        int start = 0, end = freq[s[0] - 'a'];
+        for (int i = 0; i < n; i++) {
+            end = max(end, freq[s[i] - 'a']);
 
-            if(j < first[s[k] - 'a']) {
-                ans.push_back(j - i + 1);
-                i = k;
-                j = k;
+            if (i == end) {
+                ans.push_back(i - start + 1);
+                start = i + 1;
             }
-
-            j = max(j, last[s[k] - 'a']);
         }
-
-        if(j- i + 1 > 0) ans.push_back(j - i + 1);
 
         return ans;
     }
