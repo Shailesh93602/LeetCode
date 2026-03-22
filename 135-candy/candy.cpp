@@ -1,20 +1,19 @@
 class Solution {
 public:
     int candy(vector<int>& ratings) {
-        int n = ratings.size(), count = 0;
-        vector<int> ans(n, 1);
+        int n = ratings.size();
+        vector<int> candies(n, 1);
 
         for(int i=1; i<n; i++) 
             if(ratings[i] > ratings[i - 1]) 
-                ans[i] = ans[i - 1] + 1;
+                candies[i] = candies[i - 1] + 1; 
+        for(int i=n-2; i>=0; i--) 
+            if(ratings[i] > ratings[i + 1]) 
+                candies[i] = max(candies[i], candies[i + 1] + 1);
 
-        for(int i=n-1; i>0; i--) {
-            if(ratings[i-1] > ratings[i]) 
-                ans[i - 1] = max(ans[i] + 1, ans[i - 1]);
+        int ans = 0;
+        for(int candy: candies) ans += candy;
 
-            count += ans[i - 1];
-        }
-
-        return count + ans[n - 1];
+        return ans;
     }
 };
