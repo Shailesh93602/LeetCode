@@ -4,9 +4,7 @@ public:
         unordered_set<int> s;
 
         for(int i: nums) {
-            if(s.count(i)) return true;
-
-            s.insert(i);
+            if(!s.insert(i).second) return true;
         }
 
         return false;
